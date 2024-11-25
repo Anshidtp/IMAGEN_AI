@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link href="assets/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col">
+
+
+                <header class="py-3 mb-4 card-header">
+                    <button type="button" class="btn btn-lg" onclick="sidebar()"><i
+                            style="color:darkmagenta; font-size: 2rem" class="bi bi-list"></i>
+                    </button>
+                    <img id="df-logo" src="assets/images/df-logo.jpeg" height="50" alt="Dimension Forge Logo">
+                    <h1 id="title">Image Generation Demo</h1>
+                </header>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-1" id="sidebar-col">
+                <div id="sidebar">
+                    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    </div>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <button class="btn btn-lg mx-auto" id="texttoimg" onclick="location.href='index.html'"><i
+                                    class='bi bi-chat-square-text-fill'></i><i class='bi bi-arrow-down-short'></i><i
+                                    class='bi bi-image-fill'></i></button>
+
+                            </a>
+                        </li>
+                        <br>
+                        <li>
+                            <button class="btn btn-lg" id="imgtoimg" onclick="location.href='imgtoimg.html'"><i
+                                    class='bi bi-image-fill'></i><i class='bi bi-arrow-down-short'></i><i
+                                    class='bi bi-image-fill'></i></button>
+
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="dropdown fixed-bottom" id="userprofile">
+                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/images/user-icon.png" alt="" width="32" height="32"
+                                class="rounded-circle me-2">
+                            <strong>User 1</strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-11">
+                <div id="toolbar">
+
+                    <div style="float: left;">
+                        <label for="dd_size">
+                            <medium>Image size </medium><i class="bi bi-aspect-ratio-fill"></i>
+                        </label>
+                        <br>
+                        <select id="dd_size" type="button" class="dropdown-toggle">
+                            <option value="1024x1024">Square(1:1)</option>
+                            <option value="1152x768">Landscape(3:2)</option>
+                            <option value="768x1152">Portrait(2:3)</option>
+                            <option value="1152x864">Landscape(4:3)</option>
+                            <option value="864x1152">Portrait(3:4)</option>
+                            <option value="1360x768">Widescreen(16:9)</option>
+                            <option value="768x1360">Tall(9:16)</option>
+                        </select>
+                    </div>
+
+                    <div style="float:left; margin-left: 2%;">
+                        <label for="dd_camera_angle">Camera angle <i class="bi bi-camera2"></i></label>
+                        <br>
+                        <select id="dd_camera_angle" type="button" class="dropdown-toggle">
+                            <option value="None">None</option>
+                            <option value="Birds eye view">Birds eye view</option>
+                            <option value="Worms eye view">Worms eye view</option>
+                            <option value="Dutch angle">Dutch angle</option>
+                            <option value="Close up">Close up</option>
+                            <option value="Wide shot">Wide shot</option>
+                            <option value="Over the shoulder">Over the shoulder</option>
+                            <option value="Point of view">Point of view</option>
+                            <option value="Low angle">Low angle</option>
+                            <option value="High angle">High angle</option>
+                            <option value="Tracking shot">Tracking shot</option>
+                        </select>
+                    </div>
+
+                    <div style="float:left; margin-left: 2%;">
+                        <label for="dd_lighting">Lighting <i class="bi bi-lamp-fill"></i></label>
+                        <br>
+                        <select id="dd_lighting" type="button" class="dropdown-toggle">
+                            <option value="None">None</option>
+                            <option value="Natural sunlight">Natural sunlight</option>
+                            <option value="Soft light">Soft light</option>
+                            <option value="Backlight">Backlight</option>
+                            <option value="Candlelight">Candlelight</option>
+                            <option value="Moonlight">Moonlight</option>
+                            <option value="Fluorescent">Fluorescent</option>
+                            <option value="Firelight">Firelight</option>
+                            <option value="Neon">Neon</option>
+                            <option value="Spotlight">Spotlight</option>
+                            <option value="Underwater">Underwater</option>
+                            <option value="Dusk">Dusk</option>
+                            <option value="Dawn">Dawn</option>
+                            <option value="Stormy">Stormy</option>
+                            <option value="Twilight">Twilight</option>
+
+                        </select>
+                    </div>
+
+                    <div style="float:left; margin-left: 2%;">
+                        <label for="dd_color_palette">Color palette <i class="bi bi-palette-fill"></i></label>
+                        <br>
+                        <select id="dd_color_palette" type="button" class="dropdown-toggle">
+                            <option value="None">None</option>
+                            <option value="Monochrome">Monochrome</option>
+                            <option value="Pastel">Pastel</option>
+                            <option value="Vibrant">Vibrant</option>
+                            <option value="Earthy">Earthy</option>
+                            <option value="Cool tones">Cool tones</option>
+                            <option value="Warm tones">Warm tones</option>
+                            <option value="Neon">Neon</option>
+                            <option value="Desaturated">Desaturated</option>
+                            <option value="Autumnal">Autumnal</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Patriotic">Patriotic</option>
+                            <option value="Tropical">Tropical</option>
+                            <option value="Metallic">Metallic</option>
+                        </select>
+                    </div>
+
+
+                    <div style="float:left; margin-left: 2%;">
+                        <label for="dd_character_expression">
+                            Expressions <i class="bi bi-emoji-neutral-fill"></i></label>
+                        <br>
+                        <select id="dd_character_expression" type="button" class="dropdown-toggle">
+                            <option value="None">None</option>
+                            <option value="Smile">Smile</option>
+                            <option value="Frown">Frown</option>
+                            <option value="Surprise">Surprise</option>
+                            <option value="Anger">Anger</option>
+                            <option value="Joy">Joy</option>
+                            <option value="Disgust">Disgust</option>
+                            <option value="Fear">Fear</option>
+                            <option value="Confusion">Confusion</option>
+                            <option value="Excitement">Excitement</option>
+                            <option value="Sadness">Sadness</option>
+                            <option value="Shock">Shock</option>
+                            <option value="Contempt">Contempt</option>
+                            <option value="Skepticism">Skepticism</option>
+                            <option value="Determination">Determination</option>
+                            <option value="Relief">Relief</option>
+                            <option value="Amusement">Amusement</option>
+                        </select>
+                    </div>
+
+
+                    <div style="float:left; margin-left: 2%;">
+                        <label for="dd_character_style">Style <i class="bi bi-images"></i></label>
+                        <br>
+                        <select id="dd_character_style" type="button" class="dropdown-toggle">
+                            <option value="None">None</option>
+                            <option value="Japanese traditional">Japanese traditional</option>
+                            <option value="Samurai">Samurai</option>
+                            <option value="Manga">Manga</option>
+                            <option value="Cyberpunk">Cyberpunk</option>
+                            <option value="Superhero">Superhero</option>
+                            <option value="High tech">High tech</option>
+                            <option value="Western">Western</option>
+                            <option value="Historical">Historical</option>
+                            <option value="Futuristic">Futuristic</option>
+                            <option value="Cyborg">Cyborg</option>
+                            <option value="Space explorer">Space explorer</option>
+                        </select>
+
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row">
+
+
+                    <div class="col-3">
+                        <div class="promptarea">
+                            <fieldset id="fieldset">
+
+
+
+
+                                <div class="form-group" id="div-prompt">
+                                    <label for="textarea-prompt">Prompt</label>
+                                    <textarea class="form-control" id="textarea-prompt" rows="5" cols="50"
+                                        placeholder="Enter your prompt here..."></textarea>
+                                    <br>
+                                    <label for="dd_background">Set a predefined background</label>
+                                    <select id="dd_background" type="button" class="dropdown-toggle">
+                                        <option value="">None</option>
+                                        <option value="Forest">Forest</option>
+                                        <option value="Beach">Beach</option>
+                                        <option value="Mountains">Mountains</option>
+                                        <option value="City">City</option>
+                                        <option value="Desert">Desert</option>
+                                        <option value="Space">Space</option>
+                                        <option value="Underwater">Underwater</option>
+                                        <option value="Countryside">Countryside</option>
+                                        <option value="Castle">Castle</option>
+                                        <option value="Jungle">Jungle</option>
+                                        <option value="Night sky">Night sky</option>
+                                        <option value="Garden">Garden</option>
+                                    </select>
+                                    <br>
+                                    <h5 style="margin-top: 5%;">(or)</h5>
+                                    <div style="margin-top: 5%;">
+                                        <label for="background">Set your own background</label>
+                                        <textarea class="form-control" id="background" rows="2"
+                                            placeholder="Enter background details (optional)..."></textarea>
+                                    </div>
+                                    <br>
+
+
+
+                                    <label for="negative_prompt">Negative Prompt:</label>
+                                    <textarea class="form-control" id="negative_prompt" rows="2"
+                                        placeholder="Enter negative prompt (optional)..."></textarea>
+                                </div>
+
+
+
+
+                                <br>
+
+
+
+
+
+                            </fieldset>
+                        </div>
+
+
+
+
+
+                        <button class="btn btn-outline-primary btn-submit" type="button" id="btn-genimage"
+                            onclick="generateImage()">Generate image
+                            <i class="bi bi-image"></i></button>
+                        <button class="btn btn-outline-success" type="button" id="btn-regenimage"
+                            onclick="regenerateImage()" disabled>Regenerate Image
+                            <i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-outline-danger" type="button" id="btn-delimage" onclick="deleteImage()"
+                            disabled>Delete image
+                            <i class="bi bi-trash"></i></button>
+                        <div class="loading" id="loading">Loading...</div>
+
+
+                    </div>
+
+                    <div class="col-7">
+
+                        <img src=" assets/images/placeholder.jpeg" class="img-fluid" id="img-response"
+                            alt="Responsive image">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <script>
+                function getParameterByName(name) {
+                    const url = new URL(window.location.href);
+                    return url.searchParams.get(name);
+                }
+
+                const style = getParameterByName('style');
+                let request_id = null;
+                let image_id = null;
+
+                async function generateImage() {
+                    const prompt = document.getElementById('textarea-prompt').value;
+                    const background = document.getElementById("dd_background").value;
+                    const custom_background = document.getElementById('background').value;
+                    const negative_prompt = document.getElementById('negative_prompt').value;
+                    const image_size = document.getElementById('dd_size').value;
+                    const lighting = document.getElementById("dd_lighting").value;
+                    const color_palette = document.getElementById("dd_color_palette").value;
+                    const camera_angle = document.getElementById("dd_camera_angle").value;
+                    const character_expression = document.getElementById("dd_character_expression").value;
+                    const character_style = document.getElementById("dd_character_style").value;
+
+                    if (!prompt) {
+                        alert('Please enter a prompt');
+                        return;
+                    }
+
+                    document.getElementById('loading').style.display = 'block';
+                    document.getElementById('btn-genimage').disabled = true;
+
+                    const response = await fetch('http://127.0.0.1:8000/text_to_image/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ prompt, style, background,custom_background, negative_prompt, image_size ,lighting:lighting,color_palette:color_palette,camera_angle:camera_angle,character_expression:character_expression,character_style:character_style})
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        request_id = data.request_id;
+                        image_id = data.image_id;
+                        document.getElementById('img-response').src = data.image_url;
+                        document.getElementById('img-response').style.display = 'block';
+                        document.getElementById('btn-regenimage').disabled = false;
+                        document.getElementById('btn-delimage').disabled = false;
+                    } else {
+                        alert('Error generating image');
+                    }
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('btn-genimage').disabled = false;
+                }
+
+                async function regenerateImage() {
+                    const prompt = document.getElementById('textarea-prompt').value;
+                    const background = document.getElementById("dd_background").value;
+                    const custom_background = document.getElementById('background').value;
+                    const negative_prompt = document.getElementById('negative_prompt').value;
+                    const image_size = document.getElementById('dd_size').value;
+                    const lighting = document.getElementById("dd_lighting").value;
+                    const color_palette = document.getElementById("dd_color_palette").value;
+                    const camera_angle = document.getElementById("dd_camera_angle").value;
+                    const character_expression = document.getElementById("dd_character_expression").value;
+                    const character_style = document.getElementById("dd_character_style").value;
+
+                    if (!request_id) {
+                        alert('Generate an image first');
+                        return;
+                    }
+
+                    document.getElementById('loading').style.display = 'block';
+                    document.getElementById('btn-regenimage').disabled = true;
+
+                    const response = await fetch('http://127.0.0.1:8000/text_to_image/regenerate', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ request_id, prompt, background, custom_background, negative_prompt, image_size ,lighting:lighting,color_palette:color_palette,camera_angle:camera_angle,character_expression:character_expression,character_style:character_style })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        image_id = data.image_id;
+                        document.getElementById('img-response').src = data.image_url;
+                        document.getElementById('img-response').style.display = 'block';
+                    } else {
+                        alert('Error regenerating image');
+                    }
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('btn-regenimage').disabled = false;
+                }
+
+                async function deleteImage() {
+                    if (!request_id || !image_id) {
+                        alert('Generate an image first');
+                        return;
+                    }
+
+                    document.getElementById('loading').style.display = 'block';
+                    document.getElementById('btn-delimage').disabled = true;
+
+                    const response = await fetch(`http://127.0.0.1:8000/text_to_image/image/${request_id}/${image_id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        alert('Image deleted successfully');
+                        document.getElementById('img-response').style.display = 'none';
+                        image_id = null;
+                        document.getElementById('btn-regenimage').disabled = true;
+                        document.getElementById('btn-delimage').disabled = true;
+                    } else {
+                        alert('Error deleting image');
+                    }
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('btn-delimage').disabled = false;
+                }
+
+                var sbar = "expand";
+                function sidebar() {
+                    console.log("SBAR" + sbar);
+                    if (sbar == "collapse") {
+                        document.getElementById("sidebar").style.width = "25%";
+
+                        sbar = "expand";
+                        document.getElementById("texttoimg").innerText = "Text to image";
+                        document.getElementById("imgtoimg").innerText = "Image to image";
+
+
+                    }
+                    else {
+                        document.getElementById("sidebar").style.width = "9%";
+                        document.getElementById("texttoimg").innerHTML = "<i class='bi bi-chat-square-text-fill'></i><i class='bi bi-arrow-down-short'></i><i class='bi bi-image-fill'></i>"
+                        document.getElementById("imgtoimg").innerHTML = "<i class='bi bi-image-fill'></i><i class='bi bi-arrow-down-short'></i><i class='bi bi-image-fill'></i>"
+                        sbar = "collapse";
+                    }
+
+                }
+
+            </script>
+
+</body>
+
+</html>
